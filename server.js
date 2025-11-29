@@ -16,7 +16,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS middleware
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: [
+    'https://vsc-admin-deploy.onrender.com',  // Your frontend URL
+    'http://localhost:5173',                   // Local Vite dev server
+    'http://localhost:5000'                    // Local alternative port
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
